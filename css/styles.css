@@ -1,0 +1,113 @@
+@charset "UTF-8";
+
+* {
+  margin: 0;
+  padding: 0;
+  }
+  
+a {
+  text-decoration: none;
+}
+
+@font-face {
+  font-family: "StratosSkyeng";
+  src: url("../fonts/StratosSkyeng.woff") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: "StratosSkyeng";
+}
+
+body {
+  font-family: "StratosSkyeng", sans-serif;
+  font-style: normal;
+}
+
+/*:root {
+  --index: calc(1vw + 1vh);
+}*/
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: #e5e5e5;
+  position: relative;
+}
+
+.front {
+  background-color: #004980;
+  width: 1024px;
+  height: 774px;
+  margin: 0 auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.container {
+  width: 480px;
+  height: 460px;
+  background-color: #C2F5FF;
+  margin: 0 auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.choice {
+  width: 208px;
+  height: 96px;
+  font-size: 40px;
+  line-height: 48px;
+  color: #004980;
+  text-align: center;
+}
+
+.level {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 24px;
+}
+
+.level-item {
+  width: 98px;
+  height: 98px;
+  color: #0080C1;
+  background-color: #FFFFFF;
+  font-size: 64px;
+  line-height: 72px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  border-radius: 12px;
+}
+
+.button-start {
+  background-color: #7AC100;
+  border-radius: 12px;
+  width: 246px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  line-height: 32px;
+  color: #FFFFFF;
+}
