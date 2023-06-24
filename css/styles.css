@@ -11,32 +11,15 @@ a {
 
 @font-face {
   font-family: "StratosSkyeng";
-  src: url("../fonts/StratosSkyeng.woff") format("truetype");
+  src: url("../fonts/stratosskyengweb-regular.woff2") format("woff2");
   font-style: normal;
   font-weight: normal;
-}
-h1,
-h2,
-h3,
-h4 {
-  font-family: "StratosSkyeng";
 }
 
 body {
   font-family: "StratosSkyeng", sans-serif;
   font-style: normal;
-}
-
-/*:root {
-  --index: calc(1vw + 1vh);
-}*/
-
-html, body {
-  height: 100%;
-}
-
-body {
-  background-color: #e5e5e5;
+  background-color: #004980;
   position: relative;
 }
 
@@ -45,10 +28,9 @@ body {
   width: 1024px;
   height: 774px;
   margin: 0 auto;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container {
@@ -57,9 +39,6 @@ body {
   background-color: #C2F5FF;
   margin: 0 auto;
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
   border-radius: 12px;
   display: flex;
   flex-direction: column;
@@ -67,7 +46,7 @@ body {
   align-items: center;
 }
 
-.choice {
+.level-choice {
   width: 208px;
   height: 96px;
   font-size: 40px;
