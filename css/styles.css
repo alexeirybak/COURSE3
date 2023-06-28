@@ -76,6 +76,7 @@ body {
   align-items: center;
   gap: 24px;
   border-radius: 12px;
+  cursor: pointer;
 }
 
 .button-start {
@@ -89,4 +90,26 @@ body {
   font-size: 24px;
   line-height: 32px;
   color: #FFFFFF;
+}
+
+.button-start:hover {
+  background-color: #65960f;
+}
+
+.chosen-level {
+  border: 3px solid #0080C1;
+  box-sizing: border-box;
+}
+
+.yourLevel {
+  color: #FFFFFF;
+  font-size: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
