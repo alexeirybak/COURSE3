@@ -11,63 +11,28 @@ a {
 
 @font-face {
   font-family: "StratosSkyeng";
-  src: url("../fonts/StratosSkyeng.woff") format("truetype");
+  src: url("../fonts/stratosskyengweb-regular.woff2") format("woff2");
   font-style: normal;
   font-weight: normal;
-}
-h1,
-h2,
-h3,
-h4 {
-  font-family: "StratosSkyeng";
 }
 
 body {
   font-family: "StratosSkyeng", sans-serif;
   font-style: normal;
-}
-
-/*:root {
-  --index: calc(1vw + 1vh);
-}*/
-
-html, body {
-  height: 100%;
-}
-
-body {
-  background-color: #e5e5e5;
+  background-color: #004980;
   position: relative;
 }
 
 .front {
-  background-color: #004980;
   width: 1024px;
   height: 774px;
   margin: 0 auto;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.container {
-  width: 480px;
-  height: 460px;
-  background-color: #C2F5FF;
-  margin: 0 auto;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 12px;
   display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
 }
 
-.choice {
+.level-choice {
   width: 208px;
   height: 96px;
   font-size: 40px;
@@ -76,30 +41,41 @@ body {
   text-align: center;
 }
 
-.level {
+.form-block {
   display: flex;
-  justify-content: center;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  gap: 24px;
-}
-
-.level-item {
-  width: 98px;
-  height: 98px;
-  color: #0080C1;
-  background-color: #FFFFFF;
-  font-size: 64px;
-  line-height: 72px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  gap: 24px;
+  justify-content: space-evenly;
+  width: 480px;
+  height: 460px;
+  background-color: #C2F5FF;
   border-radius: 12px;
 }
 
+.level {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+
+.level input[type=radio] {
+  display: none;
+}
+
+.level label {
+  color: #0080C1;
+  cursor: pointer;
+  background: #ffffff;
+  border-radius: 12px;
+  width: 98px;
+  height: 98px;
+  font-size: 64px;
+  line-height: 72px;
+}
+
 .button-start {
+  box-sizing: border-box;
   background-color: #7AC100;
   border-radius: 12px;
   width: 246px;
@@ -110,4 +86,27 @@ body {
   font-size: 24px;
   line-height: 32px;
   color: #FFFFFF;
+  border: none;
+}
+
+.button-start:hover {
+  background-color: #65960f;
+}
+
+.chosen-level {
+  border: 3px solid #0080C1;
+  box-sizing: border-box;
+}
+
+.yourLevel {
+  color: #FFFFFF;
+  font-size: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
