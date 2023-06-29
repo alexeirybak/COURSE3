@@ -24,25 +24,11 @@ body {
 }
 
 .front {
-  background-color: #004980;
   width: 1024px;
   height: 774px;
   margin: 0 auto;
   display: flex;
   justify-content: center;
-  align-items: center;
-}
-
-.container {
-  width: 480px;
-  height: 460px;
-  background-color: #C2F5FF;
-  margin: 0 auto;
-  position: absolute;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
   align-items: center;
 }
 
@@ -55,31 +41,41 @@ body {
   text-align: center;
 }
 
+.form-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 480px;
+  height: 460px;
+  background-color: #C2F5FF;
+  border-radius: 12px;
+}
+
 .level {
   display: flex;
   justify-content: center;
-  flex-direction: row;
-  flex-wrap: nowrap;
+  align-items: center;
   gap: 24px;
 }
 
-.level-item {
+.level input[type=radio] {
+  display: none;
+}
+
+.level label {
+  color: #0080C1;
+  cursor: pointer;
+  background: #ffffff;
+  border-radius: 12px;
   width: 98px;
   height: 98px;
-  color: #0080C1;
-  background-color: #FFFFFF;
   font-size: 64px;
   line-height: 72px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 24px;
-  border-radius: 12px;
-  cursor: pointer;
 }
 
 .button-start {
+  box-sizing: border-box;
   background-color: #7AC100;
   border-radius: 12px;
   width: 246px;
@@ -90,6 +86,7 @@ body {
   font-size: 24px;
   line-height: 32px;
   color: #FFFFFF;
+  border: none;
 }
 
 .button-start:hover {
