@@ -24,7 +24,6 @@ export function renderCards() {
                         '<img src="./img/clubs.svg">'];
     const cardValues = ['A', 'K', 'Q', 'J', '10', '9', '8', '7', '6'];
     let cardDeck = [];
-    let cardBack = [];
   
     for (let i = 0; i < cardSymbols.length; i++) {
       for (let j = 0; j < cardValues.length; j++) {
@@ -35,27 +34,14 @@ export function renderCards() {
         cardDeck.push(card);
       }
     }
-    
-    for (let i = 0; i < cardSymbols.length; i++) {
-      let back = {
-        symbol: '<img src="./img/back.jpg">',
-        value: 'RB'
-      }
-      cardBack.push(back);
-    }
-  
-    const deck = [...cardDeck, ...cardBack];
   
     let deckHtml = '<div class="row">';
     for (let i = 0; i < 36; i++) {
-      deckHtml += `<div class="card ${deck[i].value}">`;
-      if (deck[i].value !== 'RB') {
-        deckHtml += `<div class="symbol-top-left"><div>${deck[i].value}</div><div class="block-symbol">${deck[i].symbol}</div></div>`;
-        deckHtml += `<div class="value-center my-svg">${deck[i].symbol}</div>`;
-        deckHtml += `<div class="symbol-bottom-right"><div>${deck[i].value}</div><div class="block-symbol">${deck[i].symbol}</div></div>`;
-      } else {
-        deckHtml += `${deck[i].symbol}`;
-      }
+      deckHtml += `<div class="card ${cardDeck[i].value}">`;
+      
+      deckHtml += `<div class="symbol-top-left"><div>${cardDeck[i].value}</div><div class="block-symbol">${cardDeck[i].symbol}</div></div>
+                     <div class="value-center my-svg">${cardDeck[i].symbol}</div>
+                     <div class="symbol-bottom-right"><div>${cardDeck[i].value}</div><div class="block-symbol">${cardDeck[i].symbol}</div></div>`;
       deckHtml += `</div>`;
     }
     deckHtml += `</div>`;
@@ -63,7 +49,7 @@ export function renderCards() {
   
     let backHtml = '<div class="row">';
     for (let i = 0; i < 36; i++) {
-        backHtml += `<div class="card-back">${cardBack[i % cardBack.length].symbol}</div>`;
+        backHtml += `<div class="card-back"><img src="./img/back.jpg"></div>`;
         }
     backHtml += `</div>`;
     document.querySelector('.card-back').innerHTML = backHtml;
