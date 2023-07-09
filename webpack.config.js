@@ -1,10 +1,11 @@
 const path = require("path")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const CopyPlugin = require("copy-webpack-plugin")
+//const isProduction = process.env.NODE_ENV === "production"
 
 module.exports = {
     entry: "./src/index.js",
-    mode: "production",
+    mode: "development",
     module: {
         rules: [
             { test: /\.css$/, use: ["style-loader", "css-loader"] },
