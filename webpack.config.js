@@ -24,9 +24,12 @@ module.exports = {
             },
         ],
     },
+    resolve: {
+        extensions: [".js", ".css"],
+    },
     output: {
         path: path.resolve(__dirname, "dist"),
-        filename: "bundle.js",
+        filename: "src/index.js",
     },
     plugins: [
         // And here!
@@ -34,7 +37,7 @@ module.exports = {
             patterns: [{ from: "static", to: "static" }],
         }),
         new HtmlWebpackPlugin({
-            template: "./index.html",
+            template: "./src/index.html",
         }),
         new MiniCssExtractPlugin(),
     ],

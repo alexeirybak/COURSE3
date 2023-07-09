@@ -1,5 +1,7 @@
-'use strict';
+"use strict"
 
-import { getScreen } from './screen-start.js';
+import "./style.css"
 
-getScreen();
+import { getScreen } from "./screen-start.js"
+
+getScreen()

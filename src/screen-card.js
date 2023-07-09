@@ -64,11 +64,11 @@ export function renderCards() {
     function createCardElement(card) {
         return `<div class="card ${card.value}" data-value="${card.value}" data-symbol="${card.symbol}.svg">
                     <div class="symbol-top-left"><div>${card.value}</div>
-                    <div class="block-symbol"><img src="${card.symbol}.svg"></div>
+                    <div class="block-symbol"><img src="./static/${card.symbol}.svg"></div>
                 </div>
-                <div class="value-center my-svg"><img src="${card.symbol}.svg"></div>
+                <div class="value-center my-svg"><img src="./static/${card.symbol}.svg"></div>
                 <div class="symbol-bottom-right"><div>${card.value}</div>
-                <div class="block-symbol"><img src="${card.symbol}.svg"></div></div></div>`
+                <div class="block-symbol"><img src="./static/${card.symbol}.svg"></div></div></div>`
     }
 
     function changeCardStyle() {

@@ -10,7 +10,7 @@
     "lint:css": "stylelint",
     "lint": "npm run lint:js && npm run lint:css",
     "prepare": "husky install",
-    "build": "SET NODE_ENV=production && webpack",
+    "build": "NODE_ENV=production && webpack",
     "start": "webpack-dev-server --open"
   },
   "keywords": [],
