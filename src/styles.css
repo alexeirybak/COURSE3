@@ -9,7 +9,7 @@ a {
 
 @font-face {
   font-family: "StratosSkyeng";
-  src: url("../fonts/stratosskyengweb-regular.woff2") format("woff2");
+  src: url("./stratosskyengweb-regular.woff2") format("woff2");
   font-style: normal;
   font-weight: normal;
 }
@@ -179,7 +179,7 @@ body {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   margin-left: auto;
   margin-right: auto;
@@ -236,3 +236,15 @@ body {
   transform: scale(4);
 }
 
+.selected {
+  color: transparent;
+  background-image: url(../img/back.jpg);
+}
+
+.guess {
+  border: 3px solid #7AC100;
+}
+
+/*.hidden {
+  visibility: hidden;
+}*/
