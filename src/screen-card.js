@@ -2,7 +2,7 @@ import {
     currentSelectedLevel,
     screenFirstElement,
     getScreen,
-} from './screen-start.js';
+} from './screen-start.js'; 
 
 let selectedCards = [];
 let numberOfPairs = 0;
