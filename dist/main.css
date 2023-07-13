@@ -22,6 +22,10 @@ body {
     font-style: normal;
     background-color: #004980;
     position: relative;
+    margin: auto;
+    width: 1024px;
+    height: 774px;
+    overflow: hidden;
 }
 
 .front {
@@ -67,7 +71,7 @@ body {
 .level label {
     color: #0080c1;
     cursor: pointer;
-    background: #ffffff;
+    background: #fff;
     border-radius: 12px;
     width: 98px;
     height: 98px;
@@ -86,7 +90,7 @@ body {
     align-items: center;
     font-size: 24px;
     line-height: 32px;
-    color: #ffffff;
+    color: #fff;
     border: none;
 }
 
@@ -99,23 +103,9 @@ body {
     box-sizing: border-box;
 }
 
-.yourLevel {
-    color: #ffffff;
-    font-size: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-}
-
 .start {
     width: 1024px;
-    /*height: 774px;*/
-    color: #ffffff;
+    color: #fff;
     margin: auto auto;
     display: flex;
     flex-direction: column;
@@ -158,7 +148,7 @@ body {
     height: 50px;
     font-size: 24px;
     line-height: 32px;
-    color: #ffffff;
+    color: #fff;
     background-color: #7ac100;
     box-sizing: border-box;
     background-color: #7ac100;
@@ -194,7 +184,7 @@ body {
 }
 
 .card {
-    color: #000000;
+    color: #000;
     width: 95px;
     height: 133px;
     background-color: white;
@@ -233,11 +223,13 @@ body {
     width: 4px;
     height: 5px;
 }
+
 .block-symbol {
     display: flex;
     align-items: flex-start;
     padding-left: 4px;
 }
+
 .my-svg img {
     transform: scale(4);
 }
@@ -251,10 +243,34 @@ body {
     border: 3px solid #7ac100;
 }
 
-.full-time {
+.total-time-text {
     font-size: 24px;
     line-height: 32px;
 }
 
+.total-time-figures {
+    font-size: 64px;
+    line-height: 72px;
+}
+
+.final-text {
+    font-size: 40px;
+    line-height: 48px;
+    color: #004980;
+    text-align: center;
+}
+
+.game-over-background {
+    background: linear-gradient(to bottom, rgba(0, 73, 128, 0.9), rgba(0, 73, 128, 0.9)), url(65ea31d340fff31bd3e9.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    box-sizing: content-box;
+    box-shadow: none;
+    overflow: hidden;
+    background-origin: content-box;
+    width: 1024px;
+    margin: auto;
+}
 
 /*# sourceMappingURL=main.css.map*/

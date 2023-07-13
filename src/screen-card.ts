@@ -4,19 +4,18 @@ import {
     getScreen,
 } from './screen-start.js';
 
-let selectedCards = [];
+let selectedCards: { value: string, symbol: string }[];
 let numberOfPairs = 0;
 const cardSymbols = ['spades', 'hearts', 'diamonds', 'clubs'];
 const cardValues = ['A', 'K', 'Q', 'J', '10', '9', '8', '7', '6'];
-const cardDeck = [];
-let startTime;
-let timerId;
-let minutesElement;
-let secondsElement;
+const cardDeck: Array<{ symbol: string, value: string }> = [];
+let startTime: number;
+let timerId: number;
+let minutesElement: HTMLElement | null = document.querySelector('.min-figures');
+let secondsElement: HTMLElement | null = document.querySelector('.sec-figures');
 let totalTime = "";
-let result;
-
-const screenAllCards = document.getElementById('begin');
+let result: boolean;
+const screenAllCards = document.getElementById('begin') as HTMLElement;
 
 export function renderCards() {
     screenAllCards.style.display = 'block';
@@ -52,14 +51,17 @@ export function renderCards() {
         }
     }
 
-    const shuffledCards = cardDeck.sort(() => Math.random() - 0.5);
-    let topDeck = '<div class="row">';
-    const cardsArray = [];
-    for (let i = 0; i < currentSelectedLevel * 3; i++) {
-        let card = shuffledCards[i];
-        cardsArray.push(card);
-        topDeck += createCardElement(card);
+    if (currentSelectedLevel !== null) {
+        const shuffledCards = cardDeck.sort(() => Math.random() - 0.5);
+        let topDeck = '<div class="row">';
+        const cardsArray = [];
+        for (let i = 0; i < currentSelectedLevel * 3; i++) {
+            let card = shuffledCards[i];
+            cardsArray.push(card);
+            topDeck += createCardElement(card);
+        }
     }
+    
     topDeck += `</div>`;
     document.querySelector('.card-deck-row1').innerHTML = topDeck;
 
@@ -187,21 +189,19 @@ function compareCards() {
     }
 }
 
-function updateTime() {
-    const currentTime = new Date();
-    const timeElapsed = Math.floor((currentTime - startTime) / 1000);
-
-    const minutes = Math.floor(timeElapsed / 60);
-    const seconds = timeElapsed % 60;
-
-    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-    const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
-
+function updateTime(startTime: Date, minutesElement: HTMLElement, secondsElement: HTMLElement): void {
+    let currentTime: Date = new Date();
+    const timeElapsed: number = Math.floor((currentTime.getTime() - startTime.getTime()) / 1000);
+    
+    const minutes: number = Math.floor(timeElapsed / 60);
+    const seconds: number = timeElapsed % 60;
+    
+    const formattedMinutes: string = minutes < 10 ? `0${minutes}` : minutes.toString();
+    const formattedSeconds: string = seconds < 10 ? `0${seconds}` : seconds.toString();
+    
     minutesElement.textContent = formattedMinutes;
     secondsElement.textContent = formattedSeconds;
-
-    totalTime = `${formattedMinutes}:${formattedSeconds}`;
-}
+    }
 
 function gameOver() {
     totalTime = `${minutesElement.textContent}:${secondsElement.textContent}`;
