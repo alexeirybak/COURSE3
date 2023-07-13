@@ -1,3 +1,6 @@
+/*!*****************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/style.css ***!
+  \*****************************************************************/
 * {
     margin: 0;
     padding: 0;
@@ -9,7 +12,7 @@ a {
 
 @font-face {
     font-family: 'StratosSkyeng';
-    src: url('./stratosskyengweb-regular.woff2') format('woff2');
+    src: url(ce93393e831d32412096.woff2) format('woff2');
     font-style: normal;
     font-weight: normal;
 }
@@ -19,10 +22,6 @@ body {
     font-style: normal;
     background-color: #004980;
     position: relative;
-    margin: auto;
-    width: 1024px;
-    height: 774px;
-    overflow: hidden;
 }
 
 .front {
@@ -68,7 +67,7 @@ body {
 .level label {
     color: #0080c1;
     cursor: pointer;
-    background: #fff;
+    background: #ffffff;
     border-radius: 12px;
     width: 98px;
     height: 98px;
@@ -87,7 +86,7 @@ body {
     align-items: center;
     font-size: 24px;
     line-height: 32px;
-    color: #fff;
+    color: #ffffff;
     border: none;
 }
 
@@ -100,9 +99,23 @@ body {
     box-sizing: border-box;
 }
 
+.yourLevel {
+    color: #ffffff;
+    font-size: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
 .start {
     width: 1024px;
-    color: #fff;
+    /*height: 774px;*/
+    color: #ffffff;
     margin: auto auto;
     display: flex;
     flex-direction: column;
@@ -145,7 +158,7 @@ body {
     height: 50px;
     font-size: 24px;
     line-height: 32px;
-    color: #fff;
+    color: #ffffff;
     background-color: #7ac100;
     box-sizing: border-box;
     background-color: #7ac100;
@@ -181,7 +194,7 @@ body {
 }
 
 .card {
-    color: #000;
+    color: #000000;
     width: 95px;
     height: 133px;
     background-color: white;
@@ -220,52 +233,28 @@ body {
     width: 4px;
     height: 5px;
 }
-
 .block-symbol {
     display: flex;
     align-items: flex-start;
     padding-left: 4px;
 }
-
 .my-svg img {
     transform: scale(4);
 }
 
 .selected {
     color: transparent;
-    background-image: url('./back.jpg');
+    background-image: url(8c27630cd3c577f1634d.jpg);
 }
 
 .guess {
     border: 3px solid #7ac100;
 }
 
-.total-time-text {
+.full-time {
     font-size: 24px;
     line-height: 32px;
 }
 
-.total-time-figures {
-    font-size: 64px;
-    line-height: 72px;
-}
 
-.final-text {
-    font-size: 40px;
-    line-height: 48px;
-    color: #004980;
-    text-align: center;
-}
-
-.game-over-background {
-    background: linear-gradient(to bottom, rgba(0, 73, 128, 0.9), rgba(0, 73, 128, 0.9)), url('./bg.jpg');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    box-sizing: content-box;
-    box-shadow: none;
-    overflow: hidden;
-    background-origin: content-box;
-    width: 1024px;
-    margin: auto;
-}
+/*# sourceMappingURL=main.css.map*/

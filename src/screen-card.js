@@ -1,14 +1,20 @@
 import {
-    currentSelectedLevel,
     screenFirstElement,
+    currentSelectedLevel,
     getScreen,
-} from './screen-start.js'; 
+} from './screen-start.js';
 
 let selectedCards = [];
 let numberOfPairs = 0;
 const cardSymbols = ['spades', 'hearts', 'diamonds', 'clubs'];
 const cardValues = ['A', 'K', 'Q', 'J', '10', '9', '8', '7', '6'];
 const cardDeck = [];
+let startTime;
+let timerId;
+let minutesElement;
+let secondsElement;
+let totalTime = "";
+let result;
 
 const screenAllCards = document.getElementById('begin');
 
@@ -21,7 +27,11 @@ export function renderCards() {
             <div class="min">min</div>
             <div class="sec">sec</div> 
           </div>
-          <div class="time-figures">00.00</div>
+          <div class="time-block">
+            <div class="min-figures">00</div>
+            <p>.</p>
+            <div class="sec-figures">00</div>
+          </div>
         </div>
         <button class="begin">Начать заново</button>
       </div>
@@ -70,8 +80,13 @@ export function renderCards() {
                 <div class="symbol-bottom-right"><div>${card.value}</div>
                 <div class="block-symbol"><img src="static/${card.symbol}.svg"></div></div></div>`;
     }
-
     function changeCardStyle() {
+        clearTimeout(timerId);
+        startTime = new Date();
+        minutesElement = document.querySelector('.min-figures');
+        secondsElement = document.querySelector('.sec-figures');
+        minutesElement.textContent = '00';
+        secondsElement.textContent = '00';
         const cardFrontElements = document.querySelectorAll('.card');
 
         cardFrontElements.forEach((cardFrontElement) => {
@@ -85,9 +100,11 @@ export function renderCards() {
             cardFrontElement.classList.add('selected');
             selectedCards = [];
         });
+
+        timerId = setInterval(updateTime, 1000);
     }
 
-    setTimeout(changeCardStyle, 5000);
+    setTimeout(changeCardStyle, 1000);
 
     function addRestartButtonListener() {
         const restartButton = document.querySelector('.begin');
@@ -151,31 +168,54 @@ function compareCards() {
             if (numberOfPairs / 3 === currentSelectedLevel) {
                 numberOfPairs = 0;
                 selectedCards.splice(0, 2);
-                screenAllCards.style.display = 'none';
-                screenFirstElement.style.display = 'flex';
-
-                alert('Вы победили!');
+                result = true;
+                clearInterval(timerId);
+                const cardPanel = document.querySelector('.cards');
+                cardPanel.remove();
+                gameOver();
             }
         }, 300);
     } else {
         setTimeout(() => {
             selectedCards.splice(0, 2);
-            showAllCards();
-            alert('Вы проиграли!');
+            result = false;
+            clearInterval(timerId);
+            const cardPanel = document.querySelector('.cards');
+            cardPanel.remove();
+            gameOver();
         }, 300);
     }
 }
 
-function showAllCards() {
-    const cardFrontElements = document.querySelectorAll('.card');
-    cardFrontElements.forEach((cardFrontElement) => {
-        cardFrontElement.classList.remove('selected');
-        cardFrontElement
-            .querySelectorAll(
-                '.value-center, .symbol-top-left, .symbol-bottom-right'
-            )
-            .forEach((element) => {
-                element.style.display = 'block';
-            });
-    });
+function updateTime() {
+    const currentTime = new Date();
+    const timeElapsed = Math.floor((currentTime - startTime) / 1000);
+
+    const minutes = Math.floor(timeElapsed / 60);
+    const seconds = timeElapsed % 60;
+
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+    const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+
+    minutesElement.textContent = formattedMinutes;
+    secondsElement.textContent = formattedSeconds;
+
+    totalTime = `${formattedMinutes}:${formattedSeconds}`;
+}
+
+function gameOver() {
+    totalTime = `${minutesElement.textContent}:${secondsElement.textContent}`;
+    screenAllCards.style.display = 'none';
+    screenFirstElement.style.display = 'flex';
+    let screenStart;
+
+        screenStart =   `<form class="form-block">
+                            ${result ? '<img src="static/win.png" title="Выигрыш" alt="Выигрыш"></img>' : '<img src="static/win.png" title="Выигрыш" alt="Выигрыш"></img>'}
+                            <div class="final-text">${result ? '<p>Вы выиграли</p>' : '<p>Вы проиграли</p>'}</div>
+                            <p class="total-time-text">Затраченное время</p>
+                            <p class="total-time-figures">${totalTime}</p>
+                            <button type="submit" class="button-start">Играть снова</button>
+                        </form>`;
+        screenFirstElement.innerHTML = screenStart;
+        document.body.classList.add('game-over-background');
 }

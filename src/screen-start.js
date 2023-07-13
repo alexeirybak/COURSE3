@@ -1,13 +1,13 @@
 import { renderCards } from './screen-card.js';
 
 // ---------- Рендерим первую страницу ----------------------------------------
-export const screenFirstElement = document.querySelector('.front');
+export let screenFirstElement = document.querySelector('.front');
 
-const screenStart = `<form class="form-block">
+export const screenStart = `<form class="form-block">
                             <p class="level-choice">Выбери сложность</p>
                                 <div class="level" id="levels"></div>
                                 <button type="submit" class="button-start">Старт</button>
-                    </form>`;
+                            </form>`;
 
 screenFirstElement.innerHTML = screenStart;
 
