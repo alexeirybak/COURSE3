@@ -104,7 +104,7 @@ export function renderCards() {
         timerId = setInterval(updateTime, 1000);
     }
 
-    setTimeout(changeCardStyle, 1000);
+    setTimeout(changeCardStyle, 5000);
 
     function addRestartButtonListener() {
         const restartButton = document.querySelector('.begin');
@@ -211,7 +211,7 @@ function gameOver() {
 
         screenStart =   `<form class="form-block">
                             ${result ? '<img src="static/win.png" title="Выигрыш" alt="Выигрыш"></img>' : '<img src="static/win.png" title="Выигрыш" alt="Выигрыш"></img>'}
-                            <div class="final-text">${result ? '<p>Вы выиграли</p>' : '<p>Вы проиграли</p>'}</div>
+                            <div class="final-text">${result ? '<p>Вы выиграли!</p>' : '<p>Вы проиграли!</p>'}</div>
                             <p class="total-time-text">Затраченное время</p>
                             <p class="total-time-figures">${totalTime}</p>
                             <button type="submit" class="button-start">Играть снова</button>
