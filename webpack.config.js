@@ -34,10 +34,9 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: './src/index.js',
+        filename: './src/index.ts',
     },
     plugins: [
-        // And here!
         new CopyPlugin({
             patterns: [{ from: 'static', to: 'static' }],
         }),
