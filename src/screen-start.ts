@@ -1,12 +1,12 @@
-import { renderCards } from './screen-card.js';
+import { renderCards } from './screen-card';
 
 export let screenFirstElement: HTMLElement | null = document.querySelector('.front');
 
 export const screenStart: string = `<form class="form-block">
-  <p class="level-choice">Выбери сложность</p>
-  <div class="level" id="levels"></div>
-  <button type="submit" class="button-start">Старт</button>
-</form>`;
+                                    <p class="level-choice">Выбери сложность</p>
+                                    <div class="level" id="levels"></div>
+                                    <button type="submit" class="button-start">Старт</button>
+                                    </form>`;
 
 if (screenFirstElement) {
   screenFirstElement.innerHTML = screenStart;

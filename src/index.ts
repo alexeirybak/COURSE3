@@ -2,6 +2,6 @@
 
 import './style.css';
 
-import { getScreen } from './screen-start.js';
+import { getScreen } from './screen-start';
 
 getScreen();

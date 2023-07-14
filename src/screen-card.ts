@@ -2,20 +2,22 @@ import {
     screenFirstElement,
     currentSelectedLevel,
     getScreen,
-} from './screen-start.js';
+} from './screen-start';
 
 let selectedCards: { value: string, symbol: string }[];
 let numberOfPairs = 0;
 const cardSymbols = ['spades', 'hearts', 'diamonds', 'clubs'];
 const cardValues = ['A', 'K', 'Q', 'J', '10', '9', '8', '7', '6'];
 const cardDeck: Array<{ symbol: string, value: string }> = [];
-let startTime: number;
 let timerId: number;
 let minutesElement: HTMLElement | null = document.querySelector('.min-figures');
 let secondsElement: HTMLElement | null = document.querySelector('.sec-figures');
 let totalTime = "";
 let result: boolean;
 const screenAllCards = document.getElementById('begin') as HTMLElement;
+let topDeck = '<div class="row">';
+let cardsArray: any[] = [];
+interface Card {value: string; symbol: string};
 
 export function renderCards() {
     screenAllCards.style.display = 'block';
@@ -53,7 +55,7 @@ export function renderCards() {
 
     if (currentSelectedLevel !== null) {
         const shuffledCards = cardDeck.sort(() => Math.random() - 0.5);
-        let topDeck = '<div class="row">';
+        topDeck = '<div class="row">';
         const cardsArray = [];
         for (let i = 0; i < currentSelectedLevel * 3; i++) {
             let card = shuffledCards[i];
@@ -61,19 +63,34 @@ export function renderCards() {
             topDeck += createCardElement(card);
         }
     }
-    
+
     topDeck += `</div>`;
-    document.querySelector('.card-deck-row1').innerHTML = topDeck;
+    const cardsRowTop = cardsArray.sort(() => Math.random() - 0.5);
+    for (let i = 0; i < Number(currentSelectedLevel) * 3; i++) {
+        let card = cardsRowTop[i];
+        topDeck += createCardElement(card);
+    }
+    topDeck += `</div>`;
+
+    const row1Element = document.querySelector('.card-deck-row1');
+    if (row1Element) {
+        row1Element.innerHTML = topDeck;
+    }
 
     let lowDeck = '<div class="row">';
     const cardsRowLow = cardsArray.sort(() => Math.random() - 0.5);
-    for (let i = 0; i < currentSelectedLevel * 3; i++) {
+    for (let i = 0; i < Number(currentSelectedLevel) * 3; i++) {
         let card = cardsRowLow[i];
         lowDeck += createCardElement(card);
     }
     lowDeck += `</div>`;
-    document.querySelector('.card-deck-row2').innerHTML = lowDeck;
-    function createCardElement(card) {
+
+    const row2Element = document.querySelector('.card-deck-row2');
+    if (row2Element) {
+        row2Element.innerHTML = lowDeck;
+    }
+
+    function createCardElement(card: Card) {
         return `<div class="card ${card.value}" data-value="${card.value}" data-symbol="${card.symbol}.svg">
                     <div class="symbol-top-left"><div>${card.value}</div>
                     <div class="block-symbol"><img src="static/${card.symbol}.svg"></div>
@@ -84,25 +101,24 @@ export function renderCards() {
     }
     function changeCardStyle() {
         clearTimeout(timerId);
-        startTime = new Date();
+        let startTime = new Date();
         minutesElement = document.querySelector('.min-figures');
         secondsElement = document.querySelector('.sec-figures');
-        minutesElement.textContent = '00';
-        secondsElement.textContent = '00';
+        if (minutesElement && secondsElement) {
+            minutesElement.textContent = '00';
+            secondsElement.textContent = '00';
+        }
         const cardFrontElements = document.querySelectorAll('.card');
 
-        cardFrontElements.forEach((cardFrontElement) => {
+        cardFrontElements.forEach((cardFrontElement: Element) => {
             cardFrontElement
-                .querySelectorAll(
-                    '.value-center, .symbol-top-left, .symbol-bottom-right'
-                )
+                .querySelectorAll('.value-center, .symbol-top-left, .symbol-bottom-right')
                 .forEach((element) => {
-                    element.style.display = 'none';
+                    (element as HTMLElement).style.display = 'none';
                 });
             cardFrontElement.classList.add('selected');
             selectedCards = [];
         });
-
         timerId = setInterval(updateTime, 1000);
     }
 
@@ -110,43 +126,54 @@ export function renderCards() {
 
     function addRestartButtonListener() {
         const restartButton = document.querySelector('.begin');
+        if (restartButton) {
         restartButton.addEventListener('click', (event) => {
             selectedCards = [];
             event.preventDefault();
             screenAllCards.style.display = 'none';
-            screenFirstElement.style.display = 'flex';
+            if(screenFirstElement) {
+                screenFirstElement.style.display = 'flex';
+            }
             getScreen();
-        });
+            });
+        }
     }
     addRestartButtonListener();
 
     function choiceCard() {
         const cardFrontElements = document.querySelectorAll('.card');
-
+    
         cardFrontElements.forEach((cardFrontElement) => {
-            cardFrontElement.addEventListener('click', (event) => {
+            const element = cardFrontElement as HTMLElement;
+    
+            element.addEventListener('click', (event) => {
                 event.stopPropagation();
-                cardFrontElement.classList.remove('selected');
-                cardFrontElement
+                element.classList.remove('selected');
+                element
                     .querySelectorAll(
                         '.value-center, .symbol-top-left, .symbol-bottom-right'
                     )
-                    .forEach((element) => {
-                        element.style.display = 'block';
+                    .forEach((childElement) => {
+                        const child = childElement as HTMLElement;
+                        child.style.display = 'block';
                     });
-
-                const valueCard = cardFrontElement.dataset.value;
-                const symbolCard = cardFrontElement.dataset.symbol;
-
+    
+                const valueCard = element.dataset.value;
+                const symbolCard = element.dataset.symbol;
+    
                 if (selectedCards.length < 2) {
+                    if (valueCard && symbolCard !== undefined) {
                     selectedCards.push({
                         value: valueCard,
                         symbol: symbolCard,
                     });
-                } else {
-                    selectedCards = [{ value: valueCard, symbol: symbolCard }];
                 }
-
+                } else {
+                    if (valueCard && symbolCard !== undefined) {
+                        selectedCards = [{ value: valueCard, symbol: symbolCard }];
+                    }
+                }
+    
                 if (selectedCards.length === 2) {
                     compareCards();
                 }
@@ -156,38 +183,42 @@ export function renderCards() {
     choiceCard();
 }
 
-function compareCards() {
-    const selectedCard1 = selectedCards[0];
-    const selectedCard2 = selectedCards[1];
-    if (
-        selectedCard1.value === selectedCard2.value &&
-        selectedCard1.symbol === selectedCard2.symbol
-    ) {
-        setTimeout(() => {
-            ++numberOfPairs;
-            selectedCards = [];
+    function compareCards() {
+        const selectedCard1 = selectedCards[0];
+        const selectedCard2 = selectedCards[1];
+        if (
+            selectedCard1.value === selectedCard2.value &&
+            selectedCard1.symbol === selectedCard2.symbol
+        ) {
+            setTimeout(() => {
+                ++numberOfPairs;
+                selectedCards = [];
 
-            if (numberOfPairs / 3 === currentSelectedLevel) {
-                numberOfPairs = 0;
+                if (numberOfPairs / 3 === currentSelectedLevel) {
+                    numberOfPairs = 0;
+                    selectedCards.splice(0, 2);
+                    result = true;
+                    clearInterval(timerId);
+                    const cardPanel = document.querySelector('.cards');
+                    if (cardPanel) {
+                        cardPanel.remove();
+                        gameOver();
+                    }
+                }
+            }, 300);
+        } else {
+            setTimeout(() => {
                 selectedCards.splice(0, 2);
-                result = true;
+                result = false;
                 clearInterval(timerId);
                 const cardPanel = document.querySelector('.cards');
-                cardPanel.remove();
-                gameOver();
-            }
+                if (cardPanel) {
+                    cardPanel.remove();
+                    gameOver();
+                }
         }, 300);
-    } else {
-        setTimeout(() => {
-            selectedCards.splice(0, 2);
-            result = false;
-            clearInterval(timerId);
-            const cardPanel = document.querySelector('.cards');
-            cardPanel.remove();
-            gameOver();
-        }, 300);
+        }
     }
-}
 
 function updateTime(startTime: Date, minutesElement: HTMLElement, secondsElement: HTMLElement): void {
     let currentTime: Date = new Date();
@@ -204,8 +235,11 @@ function updateTime(startTime: Date, minutesElement: HTMLElement, secondsElement
     }
 
 function gameOver() {
+    if (minutesElement && secondsElement) {
     totalTime = `${minutesElement.textContent}:${secondsElement.textContent}`;
+    }
     screenAllCards.style.display = 'none';
+    if (screenFirstElement) {
     screenFirstElement.style.display = 'flex';
     let screenStart;
 
@@ -217,5 +251,6 @@ function gameOver() {
                             <button type="submit" class="button-start">Играть снова</button>
                         </form>`;
         screenFirstElement.innerHTML = screenStart;
+    }
         document.body.classList.add('game-over-background');
 }
