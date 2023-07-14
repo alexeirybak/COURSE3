@@ -16,7 +16,7 @@ let totalTime = "";
 let result: boolean;
 const screenAllCards = document.getElementById('begin') as HTMLElement;
 let topDeck = '<div class="row">';
-let cardsArray: any[] = [];
+let cardsArray: Card[] = [];
 interface Card {value: string; symbol: string};
 
 export function renderCards() {
