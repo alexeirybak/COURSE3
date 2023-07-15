@@ -34,7 +34,7 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: './src/index.ts',
+        filename: './index.js',
     },
     plugins: [
         new CopyPlugin({
