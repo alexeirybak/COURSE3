@@ -4,11 +4,11 @@ import {
     getScreen,
 } from './screen-start';
 
-let selectedCards: { value: string, symbol: string }[];
+let selectedCards: Card[] = [];
 let numberOfPairs = 0;
 const cardSymbols = ['spades', 'hearts', 'diamonds', 'clubs'];
 const cardValues = ['A', 'K', 'Q', 'J', '10', '9', '8', '7', '6'];
-const cardDeck: Array<{ symbol: string, value: string }> = [];
+const cardDeck: Card[] = [];
 let timerId: number;
 let minutesElement: HTMLElement | null = document.querySelector('.min-figures');
 let secondsElement: HTMLElement | null = document.querySelector('.sec-figures');
@@ -17,7 +17,10 @@ let result: boolean;
 const screenAllCards = document.getElementById('begin') as HTMLElement;
 let topDeck = '<div class="row">';
 let cardsArray: Card[] = [];
-interface Card {value: string; symbol: string};
+interface Card {
+  value: string;
+  symbol: string;
+}
 
 export function renderCards() {
     screenAllCards.style.display = 'block';
