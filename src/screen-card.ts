@@ -9,18 +9,18 @@ let numberOfPairs = 0;
 const cardSymbols = ['spades', 'hearts', 'diamonds', 'clubs'];
 const cardValues = ['A', 'K', 'Q', 'J', '10', '9', '8', '7', '6'];
 const cardDeck: Card[] = [];
+let startTime;
 let timerId: number;
 let minutesElement: HTMLElement | null = document.querySelector('.min-figures');
 let secondsElement: HTMLElement | null = document.querySelector('.sec-figures');
 let totalTime = "";
 let result: boolean;
-const screenAllCards = document.getElementById('begin') as HTMLElement;
-let topDeck = '<div class="row">';
-let cardsArray: Card[] = [];
 interface Card {
-  value: string;
-  symbol: string;
-}
+    value: string;
+    symbol: string;
+  }
+
+const screenAllCards = document.getElementById('begin') as HTMLElement;
 
 export function renderCards() {
     screenAllCards.style.display = 'block';
@@ -56,21 +56,12 @@ export function renderCards() {
         }
     }
 
-    if (currentSelectedLevel !== null) {
-        const shuffledCards = cardDeck.sort(() => Math.random() - 0.5);
-        topDeck = '<div class="row">';
-        const cardsArray = [];
-        for (let i = 0; i < currentSelectedLevel * 3; i++) {
-            let card = shuffledCards[i];
-            cardsArray.push(card);
-            topDeck += createCardElement(card);
-        }
-    }
-
-    topDeck += `</div>`;
-    const cardsRowTop = cardsArray.sort(() => Math.random() - 0.5);
+    const shuffledCards = cardDeck.sort(() => Math.random() - 0.5);
+    let topDeck = '<div class="row">';
+    const cardsArray = [];
     for (let i = 0; i < Number(currentSelectedLevel) * 3; i++) {
-        let card = cardsRowTop[i];
+        let card = shuffledCards[i];
+        cardsArray.push(card);
         topDeck += createCardElement(card);
     }
     topDeck += `</div>`;
@@ -85,8 +76,7 @@ export function renderCards() {
     for (let i = 0; i < Number(currentSelectedLevel) * 3; i++) {
         let card = cardsRowLow[i];
         lowDeck += createCardElement(card);
-    }
-    lowDeck += `</div>`;
+    }    lowDeck += `</div>`;
 
     const row2Element = document.querySelector('.card-deck-row2');
     if (row2Element) {
@@ -98,13 +88,13 @@ export function renderCards() {
                     <div class="symbol-top-left"><div>${card.value}</div>
                     <div class="block-symbol"><img src="static/${card.symbol}.svg"></div>
                 </div>
-                    <div class="value-center my-svg"><img src="static/${card.symbol}.svg"></div>
-                    <div class="symbol-bottom-right"><div>${card.value}</div>
+                <div class="value-center my-svg"><img src="static/${card.symbol}.svg"></div>
+                <div class="symbol-bottom-right"><div>${card.value}</div>
                 <div class="block-symbol"><img src="static/${card.symbol}.svg"></div></div></div>`;
     }
     function changeCardStyle() {
         clearTimeout(timerId);
-        let startTime = new Date();
+        startTime = new Date();
         minutesElement = document.querySelector('.min-figures');
         secondsElement = document.querySelector('.sec-figures');
         if (minutesElement && secondsElement) {
@@ -113,15 +103,18 @@ export function renderCards() {
         }
         const cardFrontElements = document.querySelectorAll('.card');
 
-        cardFrontElements.forEach((cardFrontElement: Element) => {
+        cardFrontElements.forEach((cardFrontElement) => {
             cardFrontElement
-                .querySelectorAll('.value-center, .symbol-top-left, .symbol-bottom-right')
+                .querySelectorAll(
+                    '.value-center, .symbol-top-left, .symbol-bottom-right'
+                )
                 .forEach((element) => {
                     (element as HTMLElement).style.display = 'none';
                 });
             cardFrontElement.classList.add('selected');
             selectedCards = [];
         });
+
         timerId = setInterval(updateTime, 1000);
     }
 
@@ -186,56 +179,62 @@ export function renderCards() {
     choiceCard();
 }
 
-    function compareCards() {
-        const selectedCard1 = selectedCards[0];
-        const selectedCard2 = selectedCards[1];
-        if (
-            selectedCard1.value === selectedCard2.value &&
-            selectedCard1.symbol === selectedCard2.symbol
-        ) {
-            setTimeout(() => {
-                ++numberOfPairs;
-                selectedCards = [];
+function compareCards() {
+    const selectedCard1 = selectedCards[0];
+    const selectedCard2 = selectedCards[1];
+    if (
+        selectedCard1.value === selectedCard2.value &&
+        selectedCard1.symbol === selectedCard2.symbol
+    ) {
+        setTimeout(() => {
+            ++numberOfPairs;
+            selectedCards = [];
 
-                if (numberOfPairs / 3 === currentSelectedLevel) {
-                    numberOfPairs = 0;
-                    selectedCards.splice(0, 2);
-                    result = true;
-                    clearInterval(timerId);
-                    const cardPanel = document.querySelector('.cards');
-                    if (cardPanel) {
-                        cardPanel.remove();
-                        gameOver();
-                    }
-                }
-            }, 300);
-        } else {
-            setTimeout(() => {
+            if (numberOfPairs / 3 === currentSelectedLevel) {
+                numberOfPairs = 0;
                 selectedCards.splice(0, 2);
-                result = false;
+                result = true;
                 clearInterval(timerId);
                 const cardPanel = document.querySelector('.cards');
                 if (cardPanel) {
                     cardPanel.remove();
                     gameOver();
                 }
-        }, 300);
         }
+        }, 300);
+    } else {
+        setTimeout(() => {
+            selectedCards.splice(0, 2);
+            result = false;
+            clearInterval(timerId);
+            const cardPanel = document.querySelector('.cards');
+            if (cardPanel) {
+                cardPanel.remove();
+                gameOver();
+            }
+}, 300);
     }
+}
 
-function updateTime(startTime: Date, minutesElement: HTMLElement, secondsElement: HTMLElement): void {
-    let currentTime: Date = new Date();
-    const timeElapsed: number = Math.floor((currentTime.getTime() - startTime.getTime()) / 1000);
+function updateTime(startTime: Date | undefined, minutesElement: HTMLElement | null, secondsElement: HTMLElement | null): void {
+    const currentTime: Date = new Date();
+    const timeElapsed: number = startTime ? Math.floor((currentTime.getTime() - startTime.getTime()) / 1000) : 0;
+
+    const minutes = Math.floor(timeElapsed / 60);
+    const seconds = timeElapsed % 60;
     
-    const minutes: number = Math.floor(timeElapsed / 60);
-    const seconds: number = timeElapsed % 60;
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes.toString();
+    const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds.toString();
     
-    const formattedMinutes: string = minutes < 10 ? `0${minutes}` : minutes.toString();
-    const formattedSeconds: string = seconds < 10 ? `0${seconds}` : seconds.toString();
-    
-    minutesElement.textContent = formattedMinutes;
-    secondsElement.textContent = formattedSeconds;
+    if (minutesElement) {
+        minutesElement.textContent = formattedMinutes;
     }
+    if (secondsElement) {
+        secondsElement.textContent = formattedSeconds;
+    }
+    
+    totalTime = `${formattedMinutes}:${formattedSeconds}`;
+}
 
 function gameOver() {
     if (minutesElement && secondsElement) {
