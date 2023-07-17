@@ -9,8 +9,8 @@ let numberOfPairs = 0;
 const cardSymbols = ['spades', 'hearts', 'diamonds', 'clubs'];
 const cardValues = ['A', 'K', 'Q', 'J', '10', '9', '8', '7', '6'];
 const cardDeck: Card[] = [];
-let startTime;
-let timerId: number;
+let startTime: Date;
+let timerId: NodeJS.Timer;
 let minutesElement: HTMLElement | null = document.querySelector('.min-figures');
 let secondsElement: HTMLElement | null = document.querySelector('.sec-figures');
 let totalTime = "";
@@ -115,7 +115,8 @@ export function renderCards() {
             selectedCards = [];
         });
 
-        timerId = setInterval(updateTime, 1000);
+        timerId = setInterval(() => updateTime(startTime, minutesElement, secondsElement), 1000);
+
     }
 
     setTimeout(changeCardStyle, 5000);
