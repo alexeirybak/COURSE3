@@ -213,7 +213,7 @@ function compareCards() {
                 cardPanel.remove();
                 gameOver();
             }
-}, 300);
+        }, 300);
     }
 }
 
@@ -247,7 +247,7 @@ function gameOver() {
     let screenStart;
 
         screenStart =   `<form class="form-block">
-                            ${result ? '<img src="static/win.png" title="Выигрыш" alt="Выигрыш"></img>' : '<img src="static/win.png" title="Выигрыш" alt="Выигрыш"></img>'}
+                            ${result ? '<img src="static/win.png" title="Выигрыш" alt="Выигрыш"></img>' : '<img src="static/dead.png" title="Выигрыш" alt="Выигрыш"></img>'}
                             <div class="final-text">${result ? '<p>Вы выиграли!</p>' : '<p>Вы проиграли!</p>'}</div>
                             <p class="total-time-text">Затраченное время</p>
                             <p class="total-time-figures">${totalTime}</p>
