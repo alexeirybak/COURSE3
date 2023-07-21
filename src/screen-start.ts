@@ -20,9 +20,9 @@ const listLevels = document.getElementById('levels');
 const form = document.querySelector('.form-block');
 
 export const getScreen = () => {
-  if (screenFirstElement) {
-    screenFirstElement.classList.add('front');
-  }
+  
+    screenFirstElement?.classList.add('front');
+  
   // ---------- Рендерим уровни -------------------------------------------------
   const renderLevels = () => {
     const levelsHtml = levels
@@ -44,16 +44,12 @@ export const getScreen = () => {
     radioButton.addEventListener('change', () => {
       radioButtons.forEach((btn) => {
         if (btn !== radioButton) {
-          if (btn.parentElement) {
-            btn.parentElement.classList.remove('chosen-level');
-          }
+            btn.parentElement?.classList.remove('chosen-level');
         }
       });
   
-      if (radioButton.parentElement) {
-        radioButton.parentElement.classList.add('chosen-level');
+        radioButton.parentElement?.classList.add('chosen-level');
         currentSelectedLevel = parseInt(radioButton.value);
-      }
     });
   });
 

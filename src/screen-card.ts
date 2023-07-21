@@ -4,6 +4,11 @@ import {
     getScreen,
 } from './screen-start';
 
+interface Card {
+    value: string;
+    symbol: string;
+  }
+
 let selectedCards: Card[] = [];
 let numberOfPairs = 0;
 const cardSymbols = ['spades', 'hearts', 'diamonds', 'clubs'];
@@ -15,10 +20,6 @@ let minutesElement: HTMLElement | null = document.querySelector('.min-figures');
 let secondsElement: HTMLElement | null = document.querySelector('.sec-figures');
 let totalTime = "";
 let result: boolean;
-interface Card {
-    value: string;
-    symbol: string;
-  }
 
 const screenAllCards = document.getElementById('begin') as HTMLElement;
 
@@ -92,6 +93,7 @@ export function renderCards() {
                 <div class="symbol-bottom-right"><div>${card.value}</div>
                 <div class="block-symbol"><img src="static/${card.symbol}.svg"></div></div></div>`;
     }
+    
     function changeCardStyle() {
         clearTimeout(timerId);
         startTime = new Date();
@@ -123,8 +125,7 @@ export function renderCards() {
 
     function addRestartButtonListener() {
         const restartButton = document.querySelector('.begin');
-        if (restartButton) {
-        restartButton.addEventListener('click', (event) => {
+        restartButton?.addEventListener('click', (event) => {
             selectedCards = [];
             event.preventDefault();
             screenAllCards.style.display = 'none';
@@ -133,7 +134,6 @@ export function renderCards() {
             }
             getScreen();
             });
-        }
     }
     addRestartButtonListener();
 
@@ -227,10 +227,8 @@ function updateTime(startTime: Date | undefined, minutesElement: HTMLElement | n
     const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes.toString();
     const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds.toString();
     
-    if (minutesElement) {
+    if (minutesElement && secondsElement) {
         minutesElement.textContent = formattedMinutes;
-    }
-    if (secondsElement) {
         secondsElement.textContent = formattedSeconds;
     }
     
