@@ -23,6 +23,19 @@ let result: boolean;
 
 const screenAllCards = document.getElementById('begin') as HTMLElement;
 
+export function createCards () {
+    for (let i = 0; i < cardSymbols.length; i++) {
+        for (let j = 0; j < cardValues.length; j++) {
+            let card = {
+                symbol: cardSymbols[i],
+                value: cardValues[j],
+            };
+            cardDeck.push(card);
+        }
+    }
+    return cardDeck;
+}
+
 export function renderCards() {
     screenAllCards.style.display = 'block';
     const screenCards = `
@@ -47,15 +60,7 @@ export function renderCards() {
 
     screenAllCards.innerHTML = screenCards;
 
-    for (let i = 0; i < cardSymbols.length; i++) {
-        for (let j = 0; j < cardValues.length; j++) {
-            let card = {
-                symbol: cardSymbols[i],
-                value: cardValues[j],
-            };
-            cardDeck.push(card);
-        }
-    }
+createCards();
 
     const shuffledCards = cardDeck.sort(() => Math.random() - 0.5);
     let topDeck = '<div class="row">';

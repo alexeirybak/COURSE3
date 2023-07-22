@@ -24,18 +24,16 @@ export const getScreen = () => {
     screenFirstElement?.classList.add('front');
   
   // ---------- Рендерим уровни -------------------------------------------------
-  const renderLevels = () => {
-    const levelsHtml = levels
-      .map((level) => {
-        return `<label class="level">
-                        <input type="radio" name="level" value="${level.level}">${level.level}</label>`;
+  const levelsHtml = levels
+    .map((level) => {
+      return `<label class="level">
+              <input type="radio" name="level" value="${level.level}">${level.level}</label>`;
       })
       .join('');
-      if (listLevels) {
-        listLevels.innerHTML = levelsHtml;
-      }
-  };
-  renderLevels();
+    if (listLevels) {
+      listLevels.innerHTML = levelsHtml;
+    }
+
 
   // ---------- Выбираем уровень ------------------------------------------------
   const radioButtons = document.querySelectorAll('input[type="radio"]') as NodeListOf<HTMLInputElement>;
