@@ -4,7 +4,7 @@ import {
     getScreen,
 } from './screen-start';
 
-export interface Card {
+interface Card {
     value: string;
     symbol: string;
   }
@@ -16,14 +16,28 @@ const cardValues = ['A', 'K', 'Q', 'J', '10', '9', '8', '7', '6'];
 const cardDeck: Card[] = [];
 let startTime: Date;
 let timerId: NodeJS.Timer;
-let minutesElement: HTMLElement | null = document.querySelector('.min-figures');
-let secondsElement: HTMLElement | null = document.querySelector('.sec-figures');
 let totalTime = "";
 let result: boolean;
 
-const screenAllCards = document.getElementById('begin') as HTMLElement;
+function getMinutesElement(): HTMLElement | null {
+    return document.querySelector('.min-figures');
+  }
+  
+  function getSecondsElement(): HTMLElement | null {
+    return document.querySelector('.sec-figures');
+  }
+  
+  function getScreenAllCards(): HTMLElement | null {
+    return document.getElementById('begin');
+  }
+  
+  let minutesElement = getMinutesElement();
+  let secondsElement = getSecondsElement();
+  let screenAllCards = getScreenAllCards();
+
 
 export function renderCards() {
+    if(screenAllCards) {
     screenAllCards.style.display = 'block';
     const screenCards = `
       <div class="top">
@@ -46,6 +60,7 @@ export function renderCards() {
       </div>`;
 
     screenAllCards.innerHTML = screenCards;
+    }
 
     for (let i = 0; i < cardSymbols.length; i++) {
         for (let j = 0; j < cardValues.length; j++) {
@@ -128,7 +143,9 @@ export function renderCards() {
         restartButton?.addEventListener('click', (event) => {
             selectedCards = [];
             event.preventDefault();
+            if(screenAllCards) {
             screenAllCards.style.display = 'none';
+            }
             if(screenFirstElement) {
                 screenFirstElement.style.display = 'flex';
             }
@@ -217,7 +234,7 @@ export function compareCards() {
     }
 }
 
-function updateTime(startTime: Date | undefined, minutesElement: HTMLElement | null, secondsElement: HTMLElement | null): void {
+export function updateTime(startTime: Date | undefined, minutesElement: HTMLElement | null, secondsElement: HTMLElement | null): void {
     const currentTime: Date = new Date();
     const timeElapsed: number = startTime ? Math.floor((currentTime.getTime() - startTime.getTime()) / 1000) : 0;
 
@@ -239,7 +256,9 @@ function gameOver() {
     if (minutesElement && secondsElement) {
     totalTime = `${minutesElement.textContent}:${secondsElement.textContent}`;
     }
+    if(screenAllCards) {
     screenAllCards.style.display = 'none';
+    }
     if (screenFirstElement) {
     screenFirstElement.style.display = 'flex';
     let screenStart;
