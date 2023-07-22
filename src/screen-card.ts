@@ -4,7 +4,7 @@ import {
     getScreen,
 } from './screen-start';
 
-interface Card {
+export interface Card {
     value: string;
     symbol: string;
   }
@@ -180,7 +180,7 @@ export function renderCards() {
     choiceCard();
 }
 
-function compareCards() {
+export function compareCards() {
     const selectedCard1 = selectedCards[0];
     const selectedCard2 = selectedCards[1];
     if (
