@@ -19,7 +19,7 @@ let timerId: NodeJS.Timer;
 let minutesElement: HTMLElement | null = document.querySelector('.min-figures');
 let secondsElement: HTMLElement | null = document.querySelector('.sec-figures');
 let totalTime = "";
-let result: boolean; 
+let result: boolean;
 
 const screenAllCards = document.getElementById('begin') as HTMLElement;
 
